@@ -1,0 +1,5419 @@
+  [1m[36m (154.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (104.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130829080430)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (117.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130829080430"]]
+  [1m[36m (35.0ms)[0m  [1mCOMMIT[0m
+Migrating to AddDeviseToUsers (20131202084910)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (142.7ms)[0m  [1mALTER TABLE "users" ADD COLUMN "email" character varying(255) DEFAULT '' NOT NULL[0m
+  [1m[35m (203.7ms)[0m  ALTER TABLE "users" ADD COLUMN "encrypted_password" character varying(255) DEFAULT '' NOT NULL
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "reset_password_token" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "reset_password_sent_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD COLUMN "remember_created_at" timestamp[0m
+  [1m[35m (167.4ms)[0m  ALTER TABLE "users" ADD COLUMN "sign_in_count" integer DEFAULT 0 NOT NULL
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "current_sign_in_at" timestamp[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "last_sign_in_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD COLUMN "current_sign_in_ip" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "last_sign_in_ip" character varying(255)
+  [1m[36m (55.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (69.9ms)[0m  CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131202084910"]]
+  [1m[35m (67.5ms)[0m  COMMIT
+Migrating to CreateOpenings (20131202182655)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (85.0ms)[0m  CREATE TABLE "openings" ("id" serial primary key, "user_id" integer, "link" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131202182655"]]
+  [1m[35m (31.8ms)[0m  COMMIT
+Migrating to AddStepOneFinishedToOpenings (20131202200540)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (166.3ms)[0m  ALTER TABLE "openings" ADD COLUMN "step_one_finished" boolean DEFAULT 'f'
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131202200540"]]
+  [1m[35m (18.1ms)[0m  COMMIT
+Migrating to AddStepTwoFinishedToOpenings (20131202223148)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (162.0ms)[0m  ALTER TABLE "openings" ADD COLUMN "step_two_finished" boolean DEFAULT 'f'
+  [1m[36m (174.9ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "two_reqs_example" boolean DEFAULT 'f'[0m
+  [1m[35m (163.9ms)[0m  ALTER TABLE "openings" ADD COLUMN "two_reqs_number" boolean DEFAULT 'f'
+  [1m[36m (123.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "two_reqs_completed" boolean DEFAULT 'f'[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" ADD COLUMN "q_and_a_link" character varying(255)
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131202223148"]]
+  [1m[35m (19.4ms)[0m  COMMIT
+Migrating to AddTitleAndCompanyToOpenings (20131204201522)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (83.0ms)[0m  ALTER TABLE "openings" ADD COLUMN "title" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "company" character varying(255)[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131204201522"]]
+  [1m[36m (17.6ms)[0m  [1mCOMMIT[0m
+Migrating to StepThreeFields (20131204212344)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (158.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "step_three_finished" boolean DEFAULT 'f'[0m
+  [1m[35m (181.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_photo" boolean DEFAULT 'f'
+  [1m[36m (200.8ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_headline" boolean DEFAULT 'f'[0m
+  [1m[35m (144.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_summary" boolean DEFAULT 'f'
+  [1m[36m (167.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_specialties" boolean DEFAULT 'f'[0m
+  [1m[35m (167.8ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_work" boolean DEFAULT 'f'
+  [1m[36m (131.7ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_education" boolean DEFAULT 'f'[0m
+  [1m[35m (179.8ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_skills" boolean DEFAULT 'f'
+  [1m[36m (181.2ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_work_others" boolean DEFAULT 'f'[0m
+  [1m[35m (117.7ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_education_others" boolean DEFAULT 'f'
+  [1m[36m (172.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_skills_others" boolean DEFAULT 'f'[0m
+  [1m[35m (217.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_connections" boolean DEFAULT 'f'
+  [1m[36m (145.4ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_li_recommendations" boolean DEFAULT 'f'[0m
+  [1m[35m (159.5ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_li_others" boolean DEFAULT 'f'
+  [1m[36m (132.7ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_google" boolean DEFAULT 'f'[0m
+  [1m[35m (156.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_by_links" boolean DEFAULT 'f'
+  [1m[36m (133.1ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_facebook" boolean DEFAULT 'f'[0m
+  [1m[35m (188.0ms)[0m  ALTER TABLE "openings" ADD COLUMN "three_twitter" boolean DEFAULT 'f'
+  [1m[36m (161.9ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "three_social_media" boolean DEFAULT 'f'[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" ADD COLUMN "li_link" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "by_link" character varying(255)[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131204212344"]]
+  [1m[36m (52.3ms)[0m  [1mCOMMIT[0m
+Migrating to StepFourFields (20131205001922)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (175.1ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "step_four_finished" boolean DEFAULT 'f'[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_link" character varying(255)
+  [1m[36m (130.6ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_format" boolean DEFAULT 'f'[0m
+  [1m[35m (216.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_basic" boolean DEFAULT 'f'
+  [1m[36m (229.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_linkedin" boolean DEFAULT 'f'[0m
+  [1m[35m (193.5ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_headline" boolean DEFAULT 'f'
+  [1m[36m (192.7ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_qualifications" boolean DEFAULT 'f'[0m
+  [1m[35m (205.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_work" boolean DEFAULT 'f'
+  [1m[36m (208.3ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_education" boolean DEFAULT 'f'[0m
+  [1m[35m (131.9ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_skills" boolean DEFAULT 'f'
+  [1m[36m (180.5ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_work_others" boolean DEFAULT 'f'[0m
+  [1m[35m (169.0ms)[0m  ALTER TABLE "openings" ADD COLUMN "four_cv_education_others" boolean DEFAULT 'f'
+  [1m[36m (165.0ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "four_cv_skills_others" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131205001922"]]
+  [1m[36m (57.0ms)[0m  [1mCOMMIT[0m
+Migrating to AddStepFiveFields (20131205165217)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (157.1ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "step_five_finished" boolean DEFAULT 'f'[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "openings" ADD COLUMN "five_cl_link" character varying(255)
+  [1m[36m (162.0ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "five_cl_recruiter_name" boolean DEFAULT 'f'[0m
+  [1m[35m (147.9ms)[0m  ALTER TABLE "openings" ADD COLUMN "five_cl_intro" boolean DEFAULT 'f'
+  [1m[36m (119.6ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "five_cl_skills" boolean DEFAULT 'f'[0m
+  [1m[35m (132.6ms)[0m  ALTER TABLE "openings" ADD COLUMN "five_cl_company_positives" boolean DEFAULT 'f'
+  [1m[36m (166.7ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "five_cl_availability" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131205165217"]]
+  [1m[36m (32.0ms)[0m  [1mCOMMIT[0m
+Migrating to AddStepSixFields (20131205165224)
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36m (183.2ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "step_six_finished" boolean DEFAULT 'f'[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "users" ADD COLUMN "qa_link" character varying(255)
+  [1m[36m (185.2ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "six_qa_duration" boolean DEFAULT 'f'[0m
+  [1m[35m (275.6ms)[0m  ALTER TABLE "openings" ADD COLUMN "six_qa_specific" boolean DEFAULT 'f'
+  [1m[36m (153.4ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "six_qa_examples" boolean DEFAULT 'f'[0m
+  [1m[35m (217.7ms)[0m  ALTER TABLE "openings" ADD COLUMN "six_qa_star_method" boolean DEFAULT 'f'
+  [1m[36m (156.8ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "six_qa_answers_reqs" boolean DEFAULT 'f'[0m
+  [1m[35m (226.0ms)[0m  ALTER TABLE "openings" ADD COLUMN "six_qa_strenght" boolean DEFAULT 'f'
+  [1m[36m (168.1ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "six_qa_weakness" boolean DEFAULT 'f'[0m
+  [1m[35m (143.8ms)[0m  ALTER TABLE "openings" ADD COLUMN "six_qa_salary" boolean DEFAULT 'f'
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131205165224"]]
+  [1m[35m (53.4ms)[0m  COMMIT
+Migrating to AddStepSevenFields (20131205165228)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (130.2ms)[0m  ALTER TABLE "openings" ADD COLUMN "step_seven_finished" boolean DEFAULT 'f'
+  [1m[36m (158.7ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "seven_essentials" boolean DEFAULT 'f'[0m
+  [1m[35m (131.7ms)[0m  ALTER TABLE "openings" ADD COLUMN "seven_cl_and_cv" boolean DEFAULT 'f'
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "seven_next_step" date[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "openings" ADD COLUMN "seven_q_three" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "seven_q_two" character varying(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "openings" ADD COLUMN "seven_q_one" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "openings" ADD COLUMN "seven_recruiter_background" character varying(255)[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "openings" ADD COLUMN "seven_recruiter_name" character varying(255)
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131205165228"]]
+  [1m[35m (43.0ms)[0m  COMMIT
+Migrating to CreateDelayedJobs (20140106174635)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (174.8ms)[0m  CREATE TABLE "delayed_jobs" ("id" serial primary key, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" timestamp, "locked_at" timestamp, "failed_at" timestamp, "locked_by" character varying(255), "queue" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (82.2ms)[0m  [1mCREATE INDEX "delayed_jobs_priority" ON "delayed_jobs" ("priority", "run_at")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140106174635"]]
+  [1m[36m (19.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.7ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 04:24:15 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+Completed 500 Internal Server Error in 50ms
+
+NoMethodError (undefined method `handle_asynchronously' for #<Class:0xa802aa0>):
+  app/models/opening.rb:110:in `<class:Opening>'
+  app/models/opening.rb:1:in `<top (required)>'
+  app/controllers/users_controller.rb:17:in `new'
+
+
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.8ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.4ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (23.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 04:26:28 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.4ms)
+  Rendered openings/_form_step_one.html.erb (6.9ms)
+  Rendered static/_right_arrow.html.erb (0.6ms)
+  Rendered static/_one.html.erb (24.9ms)
+  Rendered static/_two_content.html.erb (1.5ms)
+  Rendered users/_form.html.erb (114.5ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (130.7ms)
+  Rendered static/_three_content.html.erb (1.9ms)
+  Rendered users/_form.html.erb (4.4ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (10.1ms)
+  Rendered static/_four_content.html.erb (1.5ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (9.6ms)
+  Rendered static/_five_content.html.erb (1.1ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.1ms)
+  Rendered static/_six_content.html.erb (2.6ms)
+  Rendered users/_form.html.erb (5.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (19.0ms)
+  Rendered static/_seven_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (7.9ms)
+  Rendered layouts/_foundation_javascript.html.erb (92.0ms)
+  Rendered users/new.html.erb within layouts/application (677.5ms)
+  Rendered devise/menu/_registration_items.html.erb (2.0ms)
+  Rendered devise/menu/_login_items.html.erb (1.9ms)
+  Rendered layouts/_messages.html.erb (0.7ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 3060ms (Views: 3045.5ms | ActiveRecord: 7.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:31 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:31 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:31 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:31 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:31 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:32 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 04:26:35 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 04:26:36 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 04:26:44 +0200
+
+
+Started GET "/assets/whitemail.png" for 127.0.0.1 at 2014-01-08 04:52:28 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 06:39:47 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (11.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.5ms)
+  Rendered openings/_form_step_one.html.erb (7.7ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (15.4ms)
+  Rendered static/_two_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (62.5ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (91.1ms)
+  Rendered static/_three_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.7ms)
+  Rendered static/_four_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.3ms)
+  Rendered static/_five_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.4ms)
+  Rendered static/_six_content.html.erb (1.7ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (12.0ms)
+  Rendered static/_seven_content.html.erb (1.0ms)
+  Rendered users/_form.html.erb (4.8ms)
+  Rendered static/_seven.html.erb (8.5ms)
+  Rendered layouts/_foundation_javascript.html.erb (157.1ms)
+  Rendered users/new.html.erb within layouts/application (719.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.7ms)
+  Rendered layouts/_messages.html.erb (0.7ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1124ms (Views: 1071.4ms | ActiveRecord: 31.1ms)
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:50 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 06:39:52 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 06:43:05 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.3ms)
+  Rendered static/_two_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (4.6ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (8.3ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (5.9ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_left_arrow.html.erb (0.1ms)
+  Rendered static/_four.html.erb (6.4ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.7ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_six.html.erb (6.1ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_seven.html.erb (5.8ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (64.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 78ms (Views: 77.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:06 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 06:43:08 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 06:43:09 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 07:11:56 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (11.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.5ms)
+  Rendered openings/_form_step_one.html.erb (7.8ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (12.9ms)
+  Rendered static/_two_content.html.erb (1.6ms)
+  Rendered users/_form.html.erb (61.9ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (89.4ms)
+  Rendered static/_three_content.html.erb (1.9ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.5ms)
+  Rendered static/_four_content.html.erb (1.3ms)
+  Rendered users/_form.html.erb (3.4ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.0ms)
+  Rendered static/_five_content.html.erb (1.1ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.1ms)
+  Rendered static/_six_content.html.erb (2.1ms)
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (23.9ms)
+  Rendered static/_seven_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (6.8ms)
+  Rendered layouts/_foundation_javascript.html.erb (168.9ms)
+  Rendered users/new.html.erb within layouts/application (743.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.7ms)
+  Rendered layouts/_messages.html.erb (0.8ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1129ms (Views: 1108.3ms | ActiveRecord: 9.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 07:11:59 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 07:12:00 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 07:12:01 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 07:29:33 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (13.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.5ms)
+  Rendered openings/_form_step_one.html.erb (8.1ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (15.5ms)
+  Rendered static/_two_content.html.erb (1.9ms)
+  Rendered users/_form.html.erb (62.5ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (103.3ms)
+  Rendered static/_three_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (10.1ms)
+  Rendered static/_four_content.html.erb (1.3ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.2ms)
+  Rendered static/_five_content.html.erb (1.1ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.1ms)
+  Rendered static/_six_content.html.erb (3.2ms)
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (24.9ms)
+  Rendered static/_seven_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (4.1ms)
+  Rendered static/_seven.html.erb (7.4ms)
+  Rendered layouts/_foundation_javascript.html.erb (180.0ms)
+  Rendered users/new.html.erb within layouts/application (767.5ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (2.2ms)
+  Rendered layouts/_messages.html.erb (0.8ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1176ms (Views: 1153.0ms | ActiveRecord: 12.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:35 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 07:29:38 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 07:33:58 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 07:51:38 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.9ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.1ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (56.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (60.1ms)
+  Rendered static/_four_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.4ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.3ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.3ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_left_arrow.html.erb (0.1ms)
+  Rendered static/_six.html.erb (6.3ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.4ms)
+  Rendered static/_seven.html.erb (5.3ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (132.9ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1980ms (Views: 1979.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:40 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 07:51:42 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 07:56:35 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 10:04:14 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (13.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.5ms)
+  Rendered openings/_form_step_one.html.erb (7.4ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (12.8ms)
+  Rendered static/_two_content.html.erb (1.6ms)
+  Rendered users/_form.html.erb (61.7ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (89.5ms)
+  Rendered static/_three_content.html.erb (1.9ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.2ms)
+  Rendered static/_four_content.html.erb (1.5ms)
+  Rendered users/_form.html.erb (4.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (9.1ms)
+  Rendered static/_five_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_five.html.erb (8.6ms)
+  Rendered static/_six_content.html.erb (1.7ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_six.html.erb (12.4ms)
+  Rendered static/_seven_content.html.erb (1.0ms)
+  Rendered users/_form.html.erb (4.5ms)
+  Rendered static/_seven.html.erb (8.2ms)
+  Rendered layouts/_foundation_javascript.html.erb (157.9ms)
+  Rendered users/new.html.erb within layouts/application (708.1ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.7ms)
+  Rendered layouts/_messages.html.erb (0.8ms)
+  Rendered layouts/_google_analytics.html.erb (0.5ms)
+Completed 200 OK in 1135ms (Views: 1104.7ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:16 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 10:04:18 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 15:50:43 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (12.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.4ms)
+  Rendered openings/_form_step_one.html.erb (7.7ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (13.9ms)
+  Rendered static/_two_content.html.erb (1.6ms)
+  Rendered users/_form.html.erb (62.1ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (88.2ms)
+  Rendered static/_three_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.3ms)
+  Rendered static/_four_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (4.1ms)
+  Rendered static/_left_arrow.html.erb (0.4ms)
+  Rendered static/_four.html.erb (9.2ms)
+  Rendered static/_five_content.html.erb (1.4ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.4ms)
+  Rendered static/_six_content.html.erb (2.3ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (17.3ms)
+  Rendered static/_seven_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_seven.html.erb (7.1ms)
+  Rendered layouts/_foundation_javascript.html.erb (174.4ms)
+  Rendered users/new.html.erb within layouts/application (736.9ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.7ms)
+  Rendered layouts/_messages.html.erb (0.6ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1172ms (Views: 1141.0ms | ActiveRecord: 9.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:45 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 15:50:48 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 15:50:49 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 15:51:47 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:05:49 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (7.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (12.4ms)
+  Rendered static/_two_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.0ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.0ms)
+  Rendered static/_four_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.6ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.8ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (4.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (7.2ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_seven.html.erb (5.1ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (68.0ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1939ms (Views: 1937.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:51 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:05:53 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:05:54 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:05:54 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:08:00 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.5ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (4.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.3ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.5ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.4ms)
+  Rendered static/_five_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.0ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (5.5ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_seven.html.erb (4.3ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.5ms)
+  Rendered users/new.html.erb within layouts/application (59.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1882ms (Views: 1880.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:02 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/topguy.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:08:07 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:08:08 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:08:08 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:08:08 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:08:08 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:08:08 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 16:09:21 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (6.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (9.7ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.3ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.8ms)
+  Rendered static/_three_content.html.erb (0.8ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.0ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.8ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_five.html.erb (7.2ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_left_arrow.html.erb (0.4ms)
+  Rendered static/_six.html.erb (7.7ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_seven.html.erb (5.3ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.1ms)
+  Rendered users/new.html.erb within layouts/application (72.5ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 85ms (Views: 84.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:18 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:12:19 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:12:20 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:13:25 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (8.4ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.5ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.4ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.5ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (2.7ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.4ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.1ms)
+  Rendered static/_six.html.erb (5.7ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_seven.html.erb (5.6ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (63.0ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1909ms (Views: 1908.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:27 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:13:29 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:15:29 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.0ms)
+  Rendered openings/_form_step_one.html.erb (8.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (11.7ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (4.4ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.6ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.8ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.1ms)
+  Rendered static/_four.html.erb (5.3ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.2ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.0ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.7ms)
+  Rendered static/_seven.html.erb (4.2ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.6ms)
+  Rendered users/new.html.erb within layouts/application (63.7ms)
+  Rendered devise/menu/_registration_items.html.erb (1.0ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 78ms (Views: 76.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:30 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:15:31 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:15:32 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:16:33 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (6.8ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_one.html.erb (10.4ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.3ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (6.4ms)
+  Rendered static/_three_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.8ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.7ms)
+  Rendered static/_left_arrow.html.erb (0.1ms)
+  Rendered static/_four.html.erb (5.3ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (2.7ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.3ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.0ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_seven.html.erb (4.4ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.5ms)
+  Rendered users/new.html.erb within layouts/application (61.1ms)
+  Rendered devise/menu/_registration_items.html.erb (1.5ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1887ms (Views: 1886.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:35 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:16:37 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:16:38 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:16:38 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:16:38 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:16:38 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:22:09 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (6.3ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_one.html.erb (9.6ms)
+  Rendered static/_two_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (4.1ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_two.html.erb (8.6ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.3ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.7ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.5ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.0ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.0ms)
+  Rendered static/_seven_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_seven.html.erb (5.3ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (64.9ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 2081ms (Views: 2080.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:11 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:12 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:22:13 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:24:11 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.3ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.7ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.7ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_two.html.erb (9.3ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.0ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.7ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.2ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (5.7ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_seven.html.erb (6.2ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (68.6ms)
+  Rendered devise/menu/_registration_items.html.erb (46.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1874ms (Views: 1873.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:13 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:24:18 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-08 16:26:35 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.3ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (6.5ms)
+  Rendered static/_three_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.1ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.8ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.3ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (5.7ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_seven.html.erb (4.6ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.5ms)
+  Rendered users/new.html.erb within layouts/application (60.2ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1930ms (Views: 1929.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:37 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-08 16:26:42 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-08 16:26:43 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-08 16:26:57 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:10:05 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+Completed 500 Internal Server Error in 31ms
+
+NoMethodError (undefined method `handle_asynchronously' for #<Class:0xb645cd4>):
+  app/models/opening.rb:110:in `<class:Opening>'
+  app/models/opening.rb:1:in `<top (required)>'
+  app/controllers/users_controller.rb:17:in `new'
+
+
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.9ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.8ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.3ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (25.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:10:33 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.4ms)
+  Rendered openings/_form_step_one.html.erb (6.5ms)
+  Rendered static/_right_arrow.html.erb (0.6ms)
+  Rendered static/_one.html.erb (10.6ms)
+  Rendered static/_two_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (116.1ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (121.3ms)
+  Rendered static/_three_content.html.erb (1.7ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (8.6ms)
+  Rendered static/_four_content.html.erb (1.5ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.8ms)
+  Rendered static/_five_content.html.erb (1.1ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_right_arrow.html.erb (0.4ms)
+  Rendered static/_five.html.erb (9.3ms)
+  Rendered static/_six_content.html.erb (2.0ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (10.1ms)
+  Rendered static/_seven_content.html.erb (1.2ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_seven.html.erb (7.1ms)
+  Rendered layouts/_foundation_javascript.html.erb (28.2ms)
+  Rendered users/new.html.erb within layouts/application (575.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.8ms)
+  Rendered layouts/_messages.html.erb (0.7ms)
+  Rendered layouts/_google_analytics.html.erb (0.5ms)
+Completed 200 OK in 866ms (Views: 852.3ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:34 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:10:35 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:10:36 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-09 00:28:04 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:48:40 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.5ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_one.html.erb (14.4ms)
+  Rendered static/_two_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (5.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (9.4ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.5ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_four.html.erb (8.1ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.8ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (7.0ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (7.1ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_seven.html.erb (4.5ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.1ms)
+  Rendered users/new.html.erb within layouts/application (75.5ms)
+  Rendered devise/menu/_registration_items.html.erb (1.7ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 93ms (Views: 92.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:41 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:48:42 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:48:43 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:51:01 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.9ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.5ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_two.html.erb (8.8ms)
+  Rendered static/_three_content.html.erb (0.8ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.5ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.2ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.5ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.1ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (4.2ms)
+  Rendered static/_seven.html.erb (6.0ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (67.1ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 1972ms (Views: 1971.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:03 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:51:05 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-09 00:51:30 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:53:39 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.5ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (61.4ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (64.4ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.1ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.4ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.7ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (5.6ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (4.4ms)
+  Rendered static/_seven.html.erb (6.6ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (120.0ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 1867ms (Views: 1865.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:41 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:53:43 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:53:50 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.6ms)
+  Rendered static/_right_arrow.html.erb (1.1ms)
+  Rendered static/_one.html.erb (9.5ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (7.4ms)
+  Rendered static/_three_content.html.erb (0.8ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.6ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.3ms)
+  Rendered static/_five_content.html.erb (54.8ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (63.0ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.1ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_seven.html.erb (4.8ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (122.3ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.6ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 137ms (Views: 136.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:53 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:53:55 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:53:56 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:54:25 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.2ms)
+  Rendered static/_two_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.9ms)
+  Rendered static/_left_arrow.html.erb (0.3ms)
+  Rendered static/_two.html.erb (7.4ms)
+  Rendered static/_three_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.1ms)
+  Rendered static/_three.html.erb (6.0ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.1ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (6.2ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_right_arrow.html.erb (0.1ms)
+  Rendered static/_five.html.erb (5.4ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.4ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.5ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (5.7ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.1ms)
+  Rendered users/new.html.erb within layouts/application (60.2ms)
+  Rendered devise/menu/_registration_items.html.erb (1.4ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 1824ms (Views: 1823.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:27 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:54:28 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:54:29 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (13.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (16.5ms)
+  Rendered static/_two_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (4.6ms)
+  Rendered static/_left_arrow.html.erb (0.4ms)
+  Rendered static/_two.html.erb (9.0ms)
+  Rendered static/_three_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (6.7ms)
+  Rendered static/_four_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (7.3ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.8ms)
+  Rendered static/_six_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.2ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (6.6ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_seven.html.erb (4.4ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.3ms)
+  Rendered users/new.html.erb within layouts/application (129.9ms)
+  Rendered devise/menu/_registration_items.html.erb (1.1ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 144ms (Views: 142.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:00 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:55:02 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:55:03 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:55:03 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:55:03 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:55:03 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 00:58:07 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.4ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_one.html.erb (7.9ms)
+  Rendered static/_two_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (5.0ms)
+  Rendered static/_left_arrow.html.erb (0.5ms)
+  Rendered static/_two.html.erb (9.1ms)
+  Rendered static/_three_content.html.erb (0.8ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (7.6ms)
+  Rendered static/_four_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (5.9ms)
+  Rendered static/_five_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (2.9ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (5.8ms)
+  Rendered static/_six_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (2.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (5.8ms)
+  Rendered static/_seven_content.html.erb (0.2ms)
+  Rendered users/_form.html.erb (5.0ms)
+  Rendered static/_seven.html.erb (6.7ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (64.7ms)
+  Rendered devise/menu/_registration_items.html.erb (2.6ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 1819ms (Views: 1818.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:09 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 00:58:11 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 00:58:15 +0200
+
+
+Started GET "/assets/whiteinfo.png" for 127.0.0.1 at 2014-01-09 01:00:18 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (2.1ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (103.6ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 149ms (Views: 142.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 01:00:46 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (2.3ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (6.8ms)
+  Rendered devise/menu/_registration_items.html.erb (2.0ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 01:03:36 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 01:03:37 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 01:03:37 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (0.6ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (5.4ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 22ms (Views: 19.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 01:07:08 +0200
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (0.7ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/registrations/new.html.erb within layouts/application (7.0ms)
+  Rendered devise/menu/_registration_items.html.erb (1.5ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.2ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 39ms (Views: 36.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 01:17:49 +0200
+
+
+Started POST "/users" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"zffeIvMhVsVx98ruSdeIbdn/CECwwwSqRBCxAx1OZ1A=", "user"=>{"email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (3.0ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (0.4ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/registrations/new.html.erb within layouts/application (7.7ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.4ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.1ms)
+Completed 200 OK in 43ms (Views: 25.0ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 01:22:46 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-09 14:38:20 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (11.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.4ms)
+  Rendered openings/_form_step_one.html.erb (8.6ms)
+  Rendered static/_right_arrow.html.erb (0.9ms)
+  Rendered static/_one.html.erb (14.5ms)
+  Rendered static/_two_content.html.erb (1.6ms)
+  Rendered users/_form.html.erb (61.9ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (87.2ms)
+  Rendered static/_three_content.html.erb (1.9ms)
+  Rendered users/_form.html.erb (3.6ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.5ms)
+  Rendered static/_four_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.6ms)
+  Rendered static/_five_content.html.erb (1.1ms)
+  Rendered users/_form.html.erb (3.4ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (7.7ms)
+  Rendered static/_six_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (4.8ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (17.9ms)
+  Rendered static/_seven_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (7.1ms)
+  Rendered layouts/_foundation_javascript.html.erb (119.5ms)
+  Rendered users/new.html.erb within layouts/application (686.1ms)
+  Rendered devise/menu/_registration_items.html.erb (2.0ms)
+  Rendered devise/menu/_login_items.html.erb (2.0ms)
+  Rendered layouts/_messages.html.erb (0.7ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1077ms (Views: 1048.5ms | ActiveRecord: 8.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-09 14:38:23 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:02 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:02 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:02 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-09 14:39:03 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-09 14:40:06 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-10 03:15:41 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (11.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.5ms)
+  Rendered openings/_form_step_one.html.erb (7.8ms)
+  Rendered static/_right_arrow.html.erb (0.7ms)
+  Rendered static/_one.html.erb (13.1ms)
+  Rendered static/_two_content.html.erb (1.6ms)
+  Rendered users/_form.html.erb (62.5ms)
+  Rendered static/_left_arrow.html.erb (0.7ms)
+  Rendered static/_two.html.erb (89.2ms)
+  Rendered static/_three_content.html.erb (2.0ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (9.2ms)
+  Rendered static/_four_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (8.8ms)
+  Rendered static/_five_content.html.erb (1.3ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (8.2ms)
+  Rendered static/_six_content.html.erb (1.8ms)
+  Rendered users/_form.html.erb (4.3ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (23.2ms)
+  Rendered static/_seven_content.html.erb (0.9ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (7.2ms)
+  Rendered layouts/_foundation_javascript.html.erb (156.8ms)
+  Rendered users/new.html.erb within layouts/application (735.8ms)
+  Rendered devise/menu/_registration_items.html.erb (1.8ms)
+  Rendered devise/menu/_login_items.html.erb (1.8ms)
+  Rendered layouts/_messages.html.erb (0.7ms)
+  Rendered layouts/_google_analytics.html.erb (0.4ms)
+Completed 200 OK in 1185ms (Views: 1132.5ms | ActiveRecord: 32.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:43 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/boy_girl.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step1tag.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step5guy.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/righthandarrow.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step2tag.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step3paper.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/lefthandarrow.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step3tag.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step2guy.png" for 127.0.0.1 at 2014-01-10 03:15:49 +0200
+
+
+Started GET "/assets/step4tag.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step1guy.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step5tag.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step4connect.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step6tag.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step6guy.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step7tag.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/step7guy.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/email.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/register_icon.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/login_icon.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/foundicons.woff" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/blueinfo.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/bluemail.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/assets/bigguy.png" for 127.0.0.1 at 2014-01-10 03:15:50 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (2.3ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (15.8ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (0.9ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 52ms (Views: 41.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-10 03:16:22 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (0.5ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (5.2ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 21ms (Views: 18.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-10 03:17:25 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2014-01-10 03:28:33 +0200
+Processing by UsersController#new as HTML
+  Rendered layouts/_navigation_landing.html.erb (0.1ms)
+  Rendered openings/_form_step_one.html.erb (5.7ms)
+  Rendered static/_right_arrow.html.erb (0.3ms)
+  Rendered static/_one.html.erb (9.9ms)
+  Rendered static/_two_content.html.erb (0.6ms)
+  Rendered users/_form.html.erb (3.7ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_two.html.erb (18.8ms)
+  Rendered static/_three_content.html.erb (1.0ms)
+  Rendered users/_form.html.erb (4.1ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_three.html.erb (14.8ms)
+  Rendered static/_four_content.html.erb (0.5ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_four.html.erb (62.6ms)
+  Rendered static/_five_content.html.erb (0.4ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_right_arrow.html.erb (0.2ms)
+  Rendered static/_five.html.erb (6.3ms)
+  Rendered static/_six_content.html.erb (0.7ms)
+  Rendered users/_form.html.erb (3.0ms)
+  Rendered static/_left_arrow.html.erb (0.2ms)
+  Rendered static/_six.html.erb (7.0ms)
+  Rendered static/_seven_content.html.erb (0.3ms)
+  Rendered users/_form.html.erb (3.5ms)
+  Rendered static/_seven.html.erb (6.3ms)
+  Rendered layouts/_foundation_javascript.html.erb (3.2ms)
+  Rendered users/new.html.erb within layouts/application (220.6ms)
+  Rendered devise/menu/_registration_items.html.erb (1.2ms)
+  Rendered devise/menu/_login_items.html.erb (1.1ms)
+  Rendered layouts/_messages.html.erb (0.2ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 263ms (Views: 262.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/zepto.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.cookie.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.section.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.forms.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.magellan.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.abide.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.reveal.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/assets/foundation/foundation.alerts.js?body=1" for 127.0.0.1 at 2014-01-10 03:28:34 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/shared/_links.erb (0.8ms)
+  Rendered /home/administrator/.rvm/gems/ruby-2.0.0-p353/gems/devise-3.2.2/app/views/devise/sessions/new.html.erb within layouts/application (5.5ms)
+  Rendered devise/menu/_registration_items.html.erb (1.3ms)
+  Rendered devise/menu/_login_items.html.erb (1.0ms)
+  Rendered layouts/_messages.html.erb (0.1ms)
+  Rendered layouts/_google_analytics.html.erb (0.0ms)
+Completed 200 OK in 40ms (Views: 37.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/foundicons.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.ui.core.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/app.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/foundation.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.ui.theme.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.ui.core.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.css?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/jquery.ui.datepicker.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200
+
+
+Started GET "/assets/vendor/custom.modernizr.js?body=1" for 127.0.0.1 at 2014-01-10 03:29:16 +0200

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="lt-ie9 lt-ie8 lt-ie7" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <![endif]-->
+    <!--[if IE 7]>
+    <html class="lt-ie9 lt-ie8" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+        <![endif]-->
+        <!--[if IE 8]>
+        <html class="lt-ie9" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+            <![endif]-->
+            <!--[if gt IE 8]><!-->
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <!--<![endif]-->
+                <!-- Load stylesheets for Internet Explorer -->
+                <!--[if lt IE 9]>
+                <link rel="stylesheet" type="text/css" href="/style/app-ie.css" />
+                <![endif]-->
+                <!--[if lte IE 8]>
+                <link rel="stylesheet" type="text/css" href="/style/app-ie.css" />
+                <![endif]-->
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <title>7 Steps to the job you want</title>
+                    <!--script type="text/javascript"> 
+                        var $buoop = {vs:{i:8,f:15,o:10.6,s:4,n:9,text: "Your internet browser is out of date! This website doesn't work right on old browsers, upgrade today to see it in action!"}} 
+                        $buoop.ol = window.onload; 
+                        window.onload=function(){ 
+                         try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
+                         var e = document.createElement("script"); 
+                         e.setAttribute("type", "text/javascript"); 
+                         e.setAttribute("src", "javascripts/update.js"); 
+                         document.body.appendChild(e); 
+                        } 
+                    </script--> 
+                    <%= stylesheet_link_tag    "application" %>
+                    <%= javascript_include_tag "application" %>
+                    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,100' rel='stylesheet' type='text/css'>
+                    <%= javascript_include_tag "vendor/custom.modernizr" %>
+                    <%= csrf_meta_tags %>
+                </head>
+                <body>
+                  <div class="topnav fixed" data-magellan-expedition="fixed">
+                    <ul class="hmenu">
+                        <%= render 'devise/menu/registration_items' %>
+                        <%= render 'devise/menu/login_items' %>
+                    </ul>
+                    <%= yield :navigation %>  
+                    <div class="topwords">
+                        <span class="7steps">7 steps</span>
+                        <span>to the job you want</span>
+                    </div>                  
+                    <%= render 'layouts/messages' %>
+                  </div>
+                    <div id="home" class="landing bluebg" data-magellan-destination="home" >
+                        <section></section>
+                        <div class="row">
+                            <%= yield %>
+                        </div>
+                    </div>
+                    <div class="bottomgem"></div>
+                  <%= render "layouts/google_analytics" %>
+                </body>
+            </html>

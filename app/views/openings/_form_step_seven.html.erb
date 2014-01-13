@@ -1,0 +1,71 @@
+<% switches_seven = {
+	essentials: "Are you bringing a folder with a pen an a notepad?", \
+	cl_and_cv: "Did your print a copy of your resume and cover letter?", \
+} %>
+
+<h1>
+  <span>
+    <%= image_tag "step7tag.png" %>
+    <%= @opening.title.capitalize %> AT <%= @opening.company.capitalize %>: <%= @opening.step_seven_points %>/100.
+  </span>
+</h1>
+
+<h2>Before going to the interview:</h2>
+
+<%= form_for @opening do |f| %>
+    	<%= f.label :seven_recruiter_name; "What's the name of the recruiter you're meeting?" %>
+        <%= f.text_field :seven_recruiter_name, class: "form-control", value: @opening.seven_recruiter_name, placeholder: "Maria Laguerta" %>
+    	<%= f.label :seven_recruiter_background; "What did you find about your recruiter on Google?" %>
+        <%= f.text_field :seven_recruiter_background, class: "form-control", value: @opening.seven_recruiter_background, placeholder: "Won a syncrhonized swimming medal in a Carnival Cruise in 2010" %>
+        <%= f.label :seven_q_one; "Write down one question to ask the recruiter" %>
+        <%= f.text_field :seven_q_one, class: "form-control", value: @opening.seven_q_one, placeholder: "What's the capital of Greenland?" %>
+        <%= f.label :seven_q_two; "Write down another question to ask the recruiter" %>
+        <%= f.text_field :seven_q_two, class: "form-control", value: @opening.seven_q_two, placeholder: "Why did the chicken cross the road?" %>
+        <%= f.label :seven_q_three; "Write down one more question to ask the recruiter" %>
+        <%= f.text_field :seven_q_three, class: "form-control", value: @opening.seven_q_three, placeholder: "Are we human or are we dancer?" %>
+    	<%= f.submit "Save answers", class: "bluebutton prefix" %>
+<% end %>
+
+<%= render 'switches_form', opening: @opening, switches: switches_seven, step: "seven", div: "seven" %>
+
+<h2>After the interview:</h2>
+
+<%= form_for @opening do |f| %>
+    	<%= f.label :seven_next_step; "When should you start following up?" %>
+        <%= f.text_field :seven_next_step, class: "form-control", value: @opening.seven_next_step %>
+    	<%= f.submit "Save date", class: "bluebutton prefix" %>
+<% end %>
+
+<h3>Did you get the job?</h3>
+
+<%= link_to "I got it!", "#", class: "bluebutton prefix", :'data-reveal-id' => "Yes" %>
+<%= link_to "Didn't get it", "#", class: "bluebutton prefix", :'data-reveal-id' => "No" %>
+
+
+    <section id="step7" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step7" >
+        <%= render "static/seven_content" %>
+    </section>
+
+<div id="Yes" class="reveal-modal large" data-reveal>
+  <h2>Congratulations! Have some marching cats!</h2>
+  <div class="flex-video">
+          <iframe width="420" height="315" src="//www.youtube.com/embed/lAIGb1lfpBw" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <h2>We're very happy to have helped! Now go and kick some ass at that new job!</h2>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="No" class="reveal-modal large" data-reveal>
+  <h2>You will not believe who got rejected before you.</h2>
+  <div class="flex-video">
+          <iframe width="420" height="315" src="//www.youtube.com/embed/dT4Fu-XDygw" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <h2>Keep it up. You'll get there. <%= link_to "Find a new job opening", openings_path %></h2>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script>
+$('#opening_seven_next_step').datepicker({
+    dateFormat: "yy-mm-dd"
+  });
+</script>

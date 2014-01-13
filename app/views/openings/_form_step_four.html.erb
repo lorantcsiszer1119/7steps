@@ -1,0 +1,41 @@
+<% switches_four = { 
+    cv_format: "Did you pick a good format from cvsintellect?", \
+    cv_basic: "Did you check for what to put on your basic info (name, email, phone, LinkedIn link + anything else specific to your country)?", \
+  	cv_linkedin: "Did you test that your LinkedIn link on your basic info works?", \
+  	cv_headline: 'Does your headline make sense for this opening?', \
+  	cv_qualifications: 'Did you copy and paste the requirements and answers on the "qualifications" section? should be no longer than one page',\
+  	cv_work: "Did you copy and paste all the pertaining answers from the requirements doc to your work experience?", \
+    cv_education: "Did you copy and paste all the pertaining answers from the requirements doc to your education/degrees?", \
+    cv_skills: "Did you copy and paste all the pertaining answers from the requirements to your skills?", \
+    cv_work_others: "Are there any work experiences absent from your resume? make them brief", \
+    cv_education_others: "Are there any degrees absent from your resume?", \
+    cv_skills_others: "Are there any skills absent from your resume?" \
+  } %>
+
+<h1>
+  <span>
+    <%= image_tag "step4tag.png" %>
+    <%= @opening.title.capitalize %> AT <%= @opening.company.capitalize %>: <%= @opening.step_four_points %>/100.
+  </span>
+</h1>
+
+<h3>Click the link to see your <%= link_to "Resume for this opening", @opening.four_cv_link, target: "_blank" %> </h3>
+<%= render "public_doc_warning" %>
+<br>
+<%= form_for @opening do |f| %>
+    	<%= f.label :four_cv_link; "Want to use your own resume? Copy the link here:" %>
+      <%= f.text_field :four_cv_link, class: "form-control", value: @opening.four_cv_link, placeholder: "http://www.drive.google.com/user/resume.doc" %>
+      <%= f.submit "Save link", class: "bluebutton prefix" %>
+
+<% end %>
+
+<h2>On your resume:</h2>
+
+<%= render 'switches_form', opening: @opening, switches: switches_four, step: "four", div: "four" %>
+
+<%= link_to "Go to Step 5", edit_opening_path(step: 5), class: "bluebutton prefix" %>
+
+
+    <section href="#step4" id="step4" class="accordionoffwhite large-12 medium-12 acc" data-magellan-destination="step4" >
+        <%= render 'static/four_content' %>
+    </section>

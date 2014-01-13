@@ -1,0 +1,38 @@
+<div class="hide-for-small" id="desktop-step1-form">
+    <%= form_for(@opening) do |f| %>
+      <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered columns">
+        <%= f.label :link; "Copy the link to the job opening you want to work on here" %>
+        <%= f.text_field :link, class: "form-control", placeholder: "http://somejobwebsite.com/link to the opening" %>
+      </div>
+      <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered columns">
+        <%= f.label :title; "What is the title of the position?" %>
+        <%= f.text_field :title, class: "form-control", placeholder: "Blood Spatter Analyst" %>
+      </div>
+      <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered text-center columns">
+        <%= f.label :company; "For which Company are you applying for?" %>
+        <%= f.text_field :company, class: "form-control", placeholder: "Miami Metro PD" %>
+      </div>
+      <div class="large-3 large-offset-8 medium-3 medium-offset-8 large-uncentered columns">
+        <%= f.submit "Get started", class: "bluebutton prefix" %>
+      </div>
+    <% end %>
+</div>
+<div class="show-for-small" id="mobile-step1-form">
+    <%= form_for(@opening) do |f| %>
+      <div class="email-field small-12 text-center columns">
+      <%= f.label :link; "Copy the link to the job opening you want to work on here" %>
+        <%= f.text_field :link, class: "form-control", placeholder: "http://somejobwebsite.com/link to the opening" %>
+      </div>
+      <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered text-center columns">
+        <%= f.label :title; "What is the title of the position?" %>
+        <%= f.text_field :title, class: "form-control", placeholder: "Blood Spatter Analyst" %>
+      </div>
+      <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered text-center columns">
+        <%= f.label :company; "For which Company are you applying for?" %>
+        <%= f.text_field :company, class: "form-control", placeholder: "Miami Metro PD" %>
+      </div>
+      <div class="small-12 text-center columns" style="background: none !important;">
+          <%= f.submit "Get started", class: "bluebutton prefix" %>
+      </div>
+    <% end %>
+</div>

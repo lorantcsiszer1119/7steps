@@ -1,0 +1,198 @@
+<% content_for :title do %>7 steps to the job you want.<% end %>
+
+<% content_for :navigation do %>
+  <%= render 'layouts/navigation_landing' %>
+<% end %>
+
+
+        <div class="large-12 medium-12 small-12 columns">
+        <div class="large-3 large-offset-3 medium-6 small-12 text-center columns topguy_girl">
+                <%= image_tag "boy_girl.png" %>
+            </div>
+            <div class="large-6 medium-6 small-12 columns landingtext">
+                <div class="hide-for-small">
+                    <h1 class="whitecolor"><span class="font500">7 steps</span> <span class="font100"><br/>to the job <br/>you want.</span></h1>
+                </div>
+            </div>
+            <div class="show-for-small text-center">
+                <h1 class="whitecolor"><span class="font500">7 steps to the job you want.</span></h1>
+            </div>
+        </div>
+         <div class="hide-for-small">
+            <div class="large-6 medium-6 columns">
+                <a href="#step1" class="small whitebutton right">STEP ONE</a>
+            </div>
+        </div>
+        <div class="show-for-small" >
+            <div class="small-4 small-offset-2 columns"  style="padding: 0em;">
+                <a href="#step1" class="small whitebutton text-center" style="width:100%;">STEP<br/>ONE</a>
+            </div>
+        </div>
+        <div class="hide-for-small">
+            <div class="large-6 medium-6 columns">
+                <a href="#learnmore" class="small whitebutton left">LEARN MORE</a>
+            </div>
+        </div>
+        <div class="show-for-small" >
+            <div class="small-4 columns"  style="padding: 0em;">
+                <a href="#learnmore" class="small whitebutton text-center" style="width:100%;">LEARN<br/>MORE</a>
+            </div>
+        </div>
+        <div class="small-12">
+            <hr class="bluehr">
+            </hr>
+        </div>
+       <!--  <div class="show-for-small small-10 small-centered  text-center columns">
+            <blockquote class="whitecolor font300 right">Randy got an interview! check out the job opening and the resume he sent<cite class="font500">Blog: Ongoing job hunts</cite></blockquote>
+        </div>
+        <div class="hide-for-small large-6 large-offset-2  medium-6 medium-offset-1  columns">
+            <blockquote class="whitecolor font300 right">Randy got an interview! check out the job opening and the resume he sent<cite class="font500">Blog: Ongoing job hunts</cite></blockquote>
+        </div>
+        <div class="large-4 medium-4 small-12 text-center columns"><a href="#" class="tiny whitebutton moretestimonials">BLOG</a></div>
+        <hr class="bluehr">
+        </hr> -->
+        <br/>
+        <div class="hide-for-small" id="desktop-landing-form">
+            <%= form_for(Opening.new) do |f| %>
+              <div class="email-field large-8 large-offset-1 medium-8 medium-offset-1 large-uncentered text-center columns">
+                <%= f.label :link; "" %>
+                <%= f.text_field :link, class: "form-control", placeholder: "Copy the job opening link you want to work on here" %>
+                </div>
+              <div class="large-3 medium-3 large-uncentered columns">
+                <%= f.submit "Get started", class: "bluebutton prefix" %>
+              </div>
+            <% end %>
+        </div>
+        <div class="show-for-small" id="mobile-landing-form">
+            <%= form_for(Opening.new) do |f| %>
+              <div class="email-field small-centered text-center columns">
+                <%= f.label :link; "" %>
+                <%= f.text_field :link, class: "form-control", placeholder: "Copy the job opening link you want to work on here" %>
+                </div>
+               <div class="small-6 small-centered text-center columns">
+                  <%= f.submit "Get started", class: "bluebutton prefix" %>
+              </div>
+            <% end %>
+         </div>
+</div>
+<div class="hide-for-medium-down"></div>
+<div class="introcolorbg" id="learnmore">
+    <div class="introbg">
+        <div class="row">
+            <div class="intro">
+                <div class="large-6 medium-6 medium-offset-1 small-10 small-offset-1 columns">
+                    <h4 class="show-for-small lightgraycolor font400">Don't send 100 resumes and hope for a few calls.</h4>
+                    <h4 class="hide-for-small lightgraycolor font400">Don't send 100 resumes <br/>and hope for a few calls.</h4>
+                    <h3 class="show-for-small darkbluecolor">SEND 10 RESUMES AND EXPECT 5 INTERVIEWS</h3>
+                    <h3 class="hide-for-small darkbluecolor">SEND 10 RESUMES <br/>AND EXPECT 5 INTERVIEWS</h3>
+                    <br/>
+                    <p class="lineheight225">Companies don't care about who you are: <br/>
+                        <span class="font700">THEY CARE ABOUT WHAT YOU CAN DO FOR THEM.</span> <br/>
+                        This is where most people's resumes get discarded. Where most interviews fail. Where most canidates drop the ball.
+                    </p>
+                    <p class="lineheight225">My experience allowed me to design a 7 step process to avoid the pitfalls and get you the job you want. <br/>
+                        <span class="font700">AND IT'S FREE FOR YOU TO USE IT.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-container accordion" data-section="accordion" >
+    <section id="step1" class="accordionwhite active large-12 medium-12 acc" data-magellan-destination="step1" >
+        <%= render 'static/one' %>
+    </section>
+    <section id="step2" class="accordionoffwhite large-12 medium-12 acc" data-magellan-destination="step2" >
+        <%= render 'static/two' %>
+    </section>
+    <section id="step3" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step3" >
+        <%= render 'static/three' %>
+    </section>
+    <section href="#step4" id="step4" class="accordionoffwhite large-12 medium-12 acc" data-magellan-destination="step4" >
+        <%= render 'static/four' %>
+    </section>
+    <section id="step5" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step5" >
+        <%= render 'static/five' %>
+    </section>
+    <section id="step6" class="accordionoffwhite large-12 medium-12 acc" data-magellan-destination="step6" >
+        <%= render "static/six" %>
+    </section>
+    <section id="step7" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step7" >
+        <%= render "static/seven" %>
+    </section>
+</div>
+<div  class="ending bluebg wrapper">
+    <section  id="emailsection" data-magellan-destination="email"></section>
+    <div class="cell">
+        <div class="row">
+            <div class="large-2 medium-2 small-4 small-centered large-centered text-center medium-centered columns"><%= image_tag "email.png" %></div>
+            <hr class="bluehr">
+            </hr>
+            <div class="wrapper large-10 medium-9 small-9 small-centered medium-centered large-centered text-center" >
+                <span class="show-for-small text-center">
+                    <h3 class="whitecolor">WANT MORE HELP? WE'RE HERE FOR YOU.</h3>
+                    <p class="whitecolor">We'll train you, coach you and prepare you.</p>
+                </span>
+                <span class="hide-for-small text-left">
+                    <h3 class="whitecolor">WANT MORE HELP? WE'RE HERE FOR YOU.</h3>
+                    <p class="whitecolor">We'll help you, coach you and prepare you.</p>
+                </span>
+                <%= form_for(User.new) do |f| %>
+                <div class="large-9 medium-9 small-12 columns">
+                    <%= f.text_field :email, class: "form-control", placeholder: "Enter your email address" %>
+                </div>
+                <div class="show-for-small  small-12 text-center colums">
+                    <%= f.submit "Send", class: "bluebutton prefix" %>
+                </div>
+                <div class="hide-for-small large-3 medium-3 columns">
+                    <%= f.submit "Help!", class: "bluebutton prefix" %>
+                </div>
+                <% end %>
+            </div>
+            <hr class="bluehr">
+            </hr>
+        </div>
+        <div class="screensize"></div>
+    </div>
+<%= render 'layouts/foundation_javascript' %>
+<script>
+    $(document).ready(function () {
+       $("a[href^='#']").on('click', function (e) {
+           e.preventDefault();
+           var target = this.hash;
+           $target = $(target);
+           $(".accordion section i").removeClass().addClass("fi-down-arrow");
+           $target.find("i").removeClass("fi-down-arrow").addClass("fi-up-arrow");
+           $("section.active").removeClass("active");
+           $target.addClass('active');
+           $('html, body').animate({
+               'scrollTop': $target.offset().top - 46
+           }, 500, 'swing', function () {});
+
+       });
+       $(".accordiontitle").on('click', function (e) {
+           e.preventDefault();
+           if ($(this).hasClass("active")) {
+               $(this).find("i").removeClass("fi-up-arrow").addClass("fi-down-arrow");
+               $('html, body').animate({
+                   'scrollTop': $(this).offset().top - 46
+               }, 500, 'swing', function () {});
+           } else {
+               $(".accordion section i").removeClass().addClass("fi-down-arrow");
+               $(this).find("i").removeClass("fi-down-arrow").addClass("fi-up-arrow");
+               slidewait();
+           }
+       });
+
+       function slidewait() {
+           setTimeout(function () {
+               slideing();
+           }, 10);
+       }
+       function slideing() {
+           $('html, body').animate({
+               'scrollTop': $("section.active").offset().top - 46
+           }, 500, 'swing', function () {});
+       }
+   });
+</script>

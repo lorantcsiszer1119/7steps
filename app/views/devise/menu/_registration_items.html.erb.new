@@ -1,0 +1,13 @@
+<% if user_signed_in? %>
+  <li class="hide-for-small">
+  <%= link_to edit_user_registration_path, class: "small bluebutton right" do %>
+  	<span class='fi-settings'></span> Account
+  <% end %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to new_user_registration_path, class: "small bluebutton right" do %>
+  	<span class='fi-edit'></span> Register
+  <% end %>
+  </li>
+<% end %>

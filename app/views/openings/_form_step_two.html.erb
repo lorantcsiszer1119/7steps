@@ -1,0 +1,25 @@
+<% switches_two = { reqs_completed: "Answered all requirements?", reqs_example: "Answers have at least one example?", reqs_number: "Answers have at least one figure/number?" } %>
+<h1>
+  <span>
+    <%= image_tag "step2tag.png" %>
+    <%= @opening.title.capitalize %> AT <%= @opening.company.capitalize %>: <%= @opening.step_two_points %>/100.
+  </span>
+</h1>
+
+<h3>Click the link to see your <%= link_to "Requirements Answers doc", @opening.user.q_and_a_link, target: "_blank" %></h3>
+<%= render "public_doc_warning" %>
+<br>
+<%= form_for @opening.user do |f| %>
+    	<%= f.label :q_and_link; "Want to use an alternative file? Copy the link here:" %>
+        <%= f.text_field :q_and_a_link, class: "form-control", value: @opening.user.q_and_a_link, placeholder: "http://somejobwebsite.com/link to the requirements doc" %>
+    	<%= f.submit "Save link", class: "bluebutton prefix" %>
+<% end %>
+
+<h2>On your Requirements Doc:</h2>
+<%= render 'switches_form', opening: @opening, switches: switches_two, step: "two", div: "two" %>
+
+<%= link_to "Go to Step 3", edit_opening_path(step: 3), class: "bluebutton prefix" %>
+
+ <section id="step2" class="accordionwhite active large-12 medium-12 acc" data-magellan-destination="step2" >
+        <%= render 'static/two_content' %>
+</section>

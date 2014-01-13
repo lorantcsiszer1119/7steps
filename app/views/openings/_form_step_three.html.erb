@@ -1,0 +1,50 @@
+<% switches_li = { 
+    li_photo: "A good head photo", \
+    li_headline: "Your headline (below your name) makes sense to the opening?", \
+  	li_summary: "Your summary links what you are and what you want to the opening in 5 - 10 lines?", \
+  	li_specialties: 'Your "Specialties" line at the end of the summary has the keywords from the opening?', \
+  	li_work: "Did you copy and paste all the pertaining answers from the requirements doc to your work experience?",\
+  	li_education: "Did you copy and paste all the pertaining answers from the requirements doc to your education/degrees?", \
+    li_skills: "Did you copy and paste all the pertaining answers from the requirements to your skills??", \
+    li_work_others: "Are there any work experiences absent from your profile?", \
+    li_education_others: "Are there any degrees absent from your profile?", \
+    li_skills_others: "Are there any skills absent from your profile?", \
+    li_connections: "Do you have at least 50 connections?", \
+    li_recommendations: "Have you gotten at least two recommendations?", \
+    li_others: "Have you added any awards, volunteer work, projects to further enhance your profile?" }
+  switches_internet = { 
+    google: "Did you check the first two pages of your name on Google? Combined with City? Last Job?", \
+ 		by_links: "Did you rate the links that brandyourself found about you?", \
+ 		facebook: "Is your Facebook profile private enough?", \
+ 		twitter: "Are there any tweets that could hurt your recruiting chances?", \
+ 		social_media: "Did you check for innapropriate content on the rest of your social media accounts?" 
+  } %>
+
+<h1>
+  <span>
+    <%= image_tag "step3tag.png" %>
+    <%= @opening.title.capitalize %> AT <%= @opening.company.capitalize %>: <%= @opening.step_three_points %>/100.
+  </span>
+</h1>
+
+  <h3><%= link_to "Go to your brandyourself profile", current_or_guest_user.by_link if !current_or_guest_user.by_link.nil?%><br>
+  <%= link_to "Go to your LinkedIn profile", current_or_guest_user.li_link if !current_or_guest_user.li_link.nil?%></h3>
+<%= form_for @opening.user do |f| %>
+    	<%= f.label :li_link; "Copy here the link to your public LinkedIn profile:" %>
+        <%= f.text_field :li_link, class: "form-control", value: @opening.user.li_link, placeholder: "http://www.linkedin.com/in/Dexter_Morgan" %>
+    	<%= f.label :by_link; "Copy here the link to your public brandyourself profile:" %>
+        <%= f.text_field :by_link, class: "form-control", value: @opening.user.by_link, placeholder: "http://dextermorgan.brandoyurself.com" %>
+    	<%= f.submit "Save links", class: "bluebutton prefix" %>
+<% end %>
+
+<h2>On your LinkedIn profile:</h2>
+<%= render 'switches_form', opening: @opening, switches: switches_li, step: "three", div: "three_li" %>
+
+<h2>On the rest of your Internet profile</h2>
+<%= render 'switches_form', opening: @opening, switches: switches_internet, step: "three", div: "three_internet" %>
+
+<%= link_to "Go to Step 4", edit_opening_path(step: 4), class: "bluebutton prefix" %>
+
+    <section id="step3" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step3" >
+        <%= render 'static/three_content' %>
+    </section>

@@ -1,0 +1,32 @@
+<p href="#step1" class="row accordiontitle font700" data-section-title>
+    <span>
+        <%= image_tag "step1tag.png" %>FIND THE JOB OPENING YOU WANT
+    </span>
+    <br/>
+    Your skills will lead you there.
+    <a class="hide-for-small activearrow whitebutton"><i class="fi-down-arrow"></i></a>
+</p>
+<div class="content row" data-section-content>
+    <div class="large-12 medium-5 medium-centered small-8 small-centered columns"><%= image_tag "step5guy.png" %>
+    </div>
+    <div class="large-12 medium-12 small-12 small-centered columns">
+        <br/><br/>
+        <p>I will be using <%= link_to "a CDN Product Manager", 'https://docs.google.com/document/d/1U_oQptxcATulnpadcRjvfscRvif_PwXxy-OG5GGJz5o/edit?usp=sharing', target: "_blank"  %> opening for our examples.</p>
+        <p class="bluecolor font500">IF YOU HAVE A LINK TO THE JOB OPENING YOU WANT</p>
+        <p>You're done. Go to <%=link_to "Step 2", '#step2' %></p>
+        <p class="bluecolor font500">IF YOU <span style="color:red">DON'T</span> HAVE A LINK TO THE JOB OPENING YOU WANT</p>
+        <p>Try different combinations of your skills/strengts/interests on the search bar at</p>
+        <ul class="nodisc">
+            <li><%= link_to "LinkedIn", "http://www.linkedin.com", target: "_blank" %></li>
+            <li><%= link_to "Career Builder", "http://www.careerbuilder.com", target: "_blank" %></li>
+            <li><%= link_to "Indeed", "http://www.indeed.com", target: "_blank" %></li>
+            <li><%= link_to "Monster", "http://www.monster.com", target: "_blank" %></li>
+            <li><%= link_to "Wikipedia search engine list", "http://en.wikipedia.org/wiki/List_of_employment_websites", target: "_blank" %></li>
+            <li><%= link_to "The jobist", "http://thejobist.com", target: "_blank" %></li>
+        </ul>
+        <p>Find the job opening you want. Then Go to <%=link_to "Step 2", '#step2' %></p>
+        <hr/>
+        <%= render 'openings/form_step_one' %>
+    </div>
+</div>
+<%= render 'static/right_arrow' %>

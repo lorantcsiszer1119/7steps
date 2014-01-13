@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+	<li>
+		<span style=color:white>
+			<span class='fi-mail'></span><%= current_or_guest_user.email %>
+		</span>
+	</li>
+	<li>
+	 	<%= link_to destroy_user_session_path, :method => :delete, class: "small bluebutton right" do %>
+  			<span class='fi-unlock'></span> Logout
+  		<% end %>
+	</li>
+<% else %>
+  	<li>
+  		<%= link_to new_user_session_path, class: "small bluebutton right" do %>
+  			<span class='fi-lock'></span> Logout
+  		<% end %>
+  	</li>
+<% end %>

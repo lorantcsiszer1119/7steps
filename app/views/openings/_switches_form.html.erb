@@ -1,0 +1,21 @@
+<div id="<%= div %>">
+<%= form_for(opening, :html => {:class => "custom"}) do |f| %>
+	<div class="row">
+		<% switches.each do |key, value| %>
+				<p><%= value %> </p>
+				<div class="small-6">
+					<div class="switch large round ">
+						<%= f.radio_button "#{step}_#{key}".to_sym, true %>
+	        			<%= f.label "#{step}_#{key}_true".to_sym, "Done", class: "whitelabel", onclick: "" %>
+						<%= f.radio_button "#{step}_#{key}".to_sym, false %>
+	        			<%= f.label "#{step}_#{key}_false".to_sym, "To Check", class: "bluelabel", onclick: "" %>
+	        			<span></span>
+	        		</div>
+	        	</div>
+		<% end %>	        	
+		<div class="large-3 medium-3 large-uncentered columns">
+	        <%= f.submit "Save changes", class: "bluebutton prefix" %>
+	    </div>
+	</div>
+<% end %>
+</div>

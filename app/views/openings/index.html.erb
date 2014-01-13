@@ -1,0 +1,62 @@
+<% content_for :title do %>Your Job Openings.<% end %>
+<h2>Job Openings.</h2>
+<div class="ending lightbluebg wrapper">
+  <div class="large-12 medium-12 small-12 columns">
+    <% if @openings.empty? %>
+      <p>Your job openings will show up here.</p>
+    <% else %>
+    <h3>
+    	<%= link_to "brandyourself profile", current_or_guest_user.by_link if !current_or_guest_user.by_link.blank?%>
+    	<br>
+    	<%= link_to "LinkedIn profile", current_or_guest_user.li_link if !current_or_guest_user.li_link.blank?%>
+    </h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% j = 1 %>
+          <% @openings.each do |opening| %>
+            <tr>
+              <td><%= link_to "#{opening.title} at #{opening.company}", edit_opening_path(opening) %></td>
+              <% i = 1 %>
+              <% STEPS.each do |step| %>
+                <% cell_id = "#{j}-#{step}"%>
+                <td id="<%= cell_id%>">
+                  <%= link_to edit_opening_path(opening, step: i) do  %>
+                    <%= opening.send("step_#{step}_points") %>/100
+                  <% end %>
+                </td>  
+                <% i+=1 %>
+              <% end %>
+              <td><%= opening.total_points%>/700</td>
+              <td><%= link_to 'Opening Link', opening.link, target: "_blank" %></td>
+              <td><%= link_to 'Remove', opening, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+            <% j+=1 %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <br>
+    <hr class="bluehr">
+        </hr>
+    <h2>New job opening</h2>
+    <%= render 'form_step_one_inside' %>
+  </div>
+</div>
+  <%= render 'layouts/foundation_javascript' %>

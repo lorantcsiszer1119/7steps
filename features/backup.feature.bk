@@ -1,0 +1,14 @@
+	Scenario: basic
+		Given I am at the home page
+		When I type my email address on the email field
+		And I submit the form
+		Then "john@example.com" should receive an email with subject "Let's get you a new job, in 7 steps."
+		And I should see the message "Done! Check your inbox! (and Spam just in case)"
+		Then "anto@7stepstothejobyouwant.com" should receive an email with subject "new member: john@example.com"
+
+	Scenario: email invalid
+		Given I am at the home page
+		When I type a wrong email address on the email field
+		And I submit the form
+		Then I should see the message "Something went wrong, please try again"
+		And "anto@7stepstothejobyouwant.com" should have no emails

@@ -1,0 +1,34 @@
+<% switches_five = {
+	cl_recruiter_name: "Did you add the recruiter's name?", \
+	cl_intro: "Is your first paragraph highlighting one of your skills/experiences that matches a keyword?", \
+	cl_skills: "Did you copy, paste and format your answers from the requirements doc to your second paragraph?", \
+	cl_company_positives: "Did you find out enough about the company's vision, mission, etc.", \
+	cl_availability: "Did you check your availability?"
+} %>
+
+<h1>
+  <span>
+    <%= image_tag "step5tag.png" %>
+    <%= @opening.title.capitalize %> AT <%= @opening.company.capitalize %>: <%= @opening.step_five_points %>/100.
+  </span>
+</h1>
+<h3>Click the link to see your <%= link_to "Cover letter for this opening", @opening.five_cl_link, target: "_blank" %> </h3>
+<%= render "public_doc_warning" %>
+<br>
+
+<%= form_for @opening do |f| %>
+    	<%= f.label :five_cl_link; "Want to use your own cover letter? Copy the link here:" %>
+        <%= f.text_field :five_cl_link, class: "form-control", value: @opening.five_cl_link, placeholder: "http://drive.google.com/user/cover_letter.doc" %>
+    	<%= f.submit "Save link", class: "bluebutton prefix" %>
+<% end %>
+
+<h2>On your cover letter:</h2>
+
+<%= render 'switches_form', opening: @opening, switches: switches_five, step: "five", div: "five" %>
+
+<%= link_to "Go to Step 6", edit_opening_path(step: 6), class: "bluebutton prefix" %>
+
+
+    <section id="step5" class="accordionwhite large-12 medium-12 acc" data-magellan-destination="step5" >
+        <%= render 'static/five_content' %>
+    </section>

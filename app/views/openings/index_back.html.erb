@@ -1,0 +1,51 @@
+<% content_for :title do %>Your Job Openings.<% end %>
+<h1>Job Openings.</h1>
+<div class="large-12 medium-12 small-12 columns">
+  <% if @openings.empty? %>
+    <p>Your job openings will show up here.</p>
+  <% else %>
+  <h3><%= link_to "brandyourself profile", current_or_guest_user.by_link if !current_or_guest_user.by_link.nil?%>
+  <%= link_to "LinkedIn profile", current_or_guest_user.li_link if !current_or_guest_user.li_link.nil?%></h3>
+
+  <p>Job openings in progress</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Link</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @openings.each do |opening| %>
+          <tr>
+            <td><%= link_to "#{opening.title} at #{opening.company}", edit_opening_path(opening) %></td>
+            <% i = 1 %>
+            <% STEPS.each do |step| %>
+              <td>
+                <%= link_to edit_opening_path(opening, step: i) do  %>
+                  <span class='fi-<%= opening.send("step_#{step}_finished") ? "checkmark" : "remove" %>'></span>
+                <% end %>
+              </td>  
+              <% i+=1 %>
+            <% end %>
+            <td><%= link_to 'Opening Link', opening.link, target: "_blank" %></td>
+            <td><%= link_to 'Remove', opening, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <br>
+  <h1>New job opening</h1>
+  <%= render 'form_step_one' %>
+</div>
+<%= render 'layouts/foundation_javascript' %>

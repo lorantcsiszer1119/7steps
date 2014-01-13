@@ -1,0 +1,43 @@
+<% content_for :title do %>Opening: <%= @opening.title %> at <%= @opening.company%><% end %>
+
+		<% content_for :navigation do %>
+		  <%= render 'layouts/navigation_opening' %>
+		<% end %>
+<div class="row">
+<div class="small-11 columns small-offset-1">
+	<% case @step %>
+	<% when 1 %>
+		<h1>
+			<span>
+				<%= image_tag "step1tag.png" %>
+				FOR THE 
+				<%= @opening.title.capitalize %>
+				 AT 
+				 <%= @opening.company.capitalize %>
+				  OPENING: 
+				  <%= @opening.step_one_points %>/100.
+			</span>
+		</h1>
+		<%= render 'form_step_one_inside' %>
+		<%= link_to "Go to Step 2", edit_opening_path(step: 2), class: "bluebutton prefix" %>
+	<% when 2 %>
+		<%= render 'form_step_two' %>
+	<% when 3 %>
+		<%= render 'form_step_three' %>
+	<% when 4 %>
+		<%= render 'form_step_four' %>
+	<% when 5 %>
+		<%= render 'form_step_five' %>
+	<% when 6 %>
+		<%= render 'form_step_six' %>
+	<% else %>
+		<%= render 'form_step_seven' %>
+	<% end %>
+</div>
+</div>
+
+<%= link_to 'Home', openings_path %>
+
+
+
+<%= render 'layouts/foundation_javascript' %>
